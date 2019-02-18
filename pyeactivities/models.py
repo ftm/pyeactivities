@@ -1,3 +1,6 @@
+from pyeactivities.http import EActivitesClient
+
+
 class CSP:
     """Represents a CSP as returned by the CSP endpoint"""
 
@@ -7,11 +10,39 @@ class CSP:
         name: str,
         web_name: str,
         acronym: str,
+        client: EActivitesClient,
     ):
         self.code = code
         self.name = name
         self.web_name = web_name
         self.acronym = acronym
+        self.client = client
+
+        self._members = None
+
+    def get_members(self, force_recheck=False, save_results=True):
+        if self._members and not force_recheck:
+            return self._members
+
+        # Query eActivities
+        members_response = self.client.get("/CSP/{code}/reports/members".format(code=self.code))
+        members = [
+            Member(
+                m["FirstName"],
+                m["Surname"],
+                m["CID"],
+                m["Email"],
+                m["Login"],
+                m["OrderNo"],
+                m["MemberType"],
+            )
+            for m in members_response
+        ]
+
+        if save_results:
+            self._members = members
+
+        return members
 
     def __repr__(self):
         return "CSP(code='{code}', name='{name}')".format(
