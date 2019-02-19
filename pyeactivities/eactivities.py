@@ -5,8 +5,8 @@ from pyeactivities.models import CSP
 
 
 class EActivities:
-    def __init__(self, api_key: str):
-        self.client = EActivitesClient(api_key)
+    def __init__(self, api_key: str, endpoint_base: str):
+        self.client = EActivitesClient(api_key, endpoint_base)
 
     def get_csps(self) -> List[CSP]:
         csps_response = self.client.get("/CSP")
