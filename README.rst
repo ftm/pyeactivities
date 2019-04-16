@@ -1,8 +1,39 @@
 pyeactivities
 =============
 
+.. image:: https://img.shields.io/pypi/v/pyeactivities-ftm.svg
+   :alt: PyPI
+   :target: https://pypi.org/project/pyeactivities-ftm/
+
 pyeactivities is a Python wrapper for the read-only API for eActivities, the
 system provided by Imperial College Union for societies to manage themselves.
+
+Installation
+------------
+To install pyeactivities, use ``pip``
+::
+
+  pip install pyeactivities-ftm
+
+Usage
+-----
+To use pyeactivities you need the base URL for the API (found on Page 2 of the
+API documentation), and your API key.
+
+.. code-block:: python
+
+  from pyeactivities.eactivities import EActivities
+
+  eactivities = EActivities("api key", "api base url")
+
+  my_csp = eactivities.get_csps()[0]
+
+  members = my_csp.get_members()
+
+  print("{} has {} members".format(my_csp.name, len(members)))
+  for m in members:
+    print("  {cid} - {fn} {sn})".format(cid=m.cid, fn=m.first_name, sn=m.surname))
+
 
 License
 -------
