@@ -24,7 +24,8 @@ API documentation), and your API key.
 
   from pyeactivities.eactivities import EActivities
 
-  eactivities = EActivities("api key", "api base url")
+  # Base URL must end in trailing / (e.g. https://<eactivities>/API/)
+  eactivities = EActivities(api_key, api_base_url)
 
   my_csp = eactivities.get_csps()[0]
 
@@ -32,7 +33,7 @@ API documentation), and your API key.
 
   print("{} has {} members".format(my_csp.name, len(members)))
   for m in members:
-    print("  {cid} - {fn} {sn})".format(cid=m.cid, fn=m.first_name, sn=m.surname))
+    print("  {cid} - {fn} {sn}".format(cid=m.cid, fn=m.first_name, sn=m.surname))
 
 
 License
