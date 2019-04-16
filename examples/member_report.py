@@ -2,7 +2,9 @@ import os
 
 from pyeactivities.eactivities import EActivities
 
-eactivities = EActivities(os.environ["EACTIVITIES_API_KEY"], os.environ["EACTIVITIES_API_ENDPOINT"])
+eactivities = EActivities(
+    os.environ["EACTIVITIES_API_KEY"], os.environ["EACTIVITIES_API_ENDPOINT"]
+)
 
 my_csp = eactivities.get_csps()[0]
 
