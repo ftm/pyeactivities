@@ -12,8 +12,7 @@ class EActivitesClient:
     def _get(self, endpoint):
         url = self.endpoint_base + endpoint
         return requests.get(
-            url,
-            headers={"X-API-Key": self.api_key, "User-Agent": self.user_agent},
+            url, headers={"X-API-Key": self.api_key, "User-Agent": self.user_agent}
         )
 
     def get(self, endpoint):

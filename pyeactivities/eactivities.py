@@ -10,4 +10,7 @@ class EActivities:
 
     def get_csps(self) -> List[CSP]:
         csps_response = self.client.get("/CSP")
-        return [CSP(csp["Code"], csp["Name"], csp["WebName"], csp["Acronym"], self.client) for csp in csps_response]
+        return [
+            CSP(csp["Code"], csp["Name"], csp["WebName"], csp["Acronym"], self.client)
+            for csp in csps_response
+        ]
