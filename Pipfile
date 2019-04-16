@@ -4,7 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pyeactivities = {editable = true,path = "."}
+pyeactivities-ftm = {editable = true,path = "."}
+requests = "*"
 
 [dev-packages]
 
