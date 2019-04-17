@@ -1,7 +1,13 @@
 pyeactivities
 =============
 
-.. image:: https://img.shields.io/pypi/v/pyeactivities-ftm.svg
+|circleci-status| |pypi-version|
+
+.. |circleci-status| image:: https://circleci.com/gh/ftm/pyeactivities/tree/master.svg?style=svg
+   :alt: CircleCI
+   :target: https://circleci.com/gh/ftm/pyeactivities/tree/master
+
+.. |pypi-version| image:: https://img.shields.io/pypi/v/pyeactivities-ftm.svg
    :alt: PyPI
    :target: https://pypi.org/project/pyeactivities-ftm/
 
