@@ -1,4 +1,29 @@
 version: 2
+workflows:
+  version: 2
+  main:
+    jobs:
+      - test:
+          filters:
+            tags:
+              only: /.*/
+      - build-dist:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /\d+\.\d+\.\d+(?:-.*)?/
+            branches:
+              ignore: /.*/
+      - release-github:
+          requires:
+            - build-dist
+          filters:
+            tags:
+              only: /\d+\.\d+\.\d+(?:-.*)?/
+            branches:
+              ignore: /.*/
+
 jobs:
   test:
     working_directory: ~/pyeactivities
@@ -34,3 +59,33 @@ jobs:
           path: test-results
       - store_artifacts:
           path: test-results
+
+  build-dist:
+    working_directory: ~/pyeactivities
+    docker:
+        - image: circleci/python:3.7.1
+    steps:
+      - checkout
+      - run:
+          name: "Build source and binary distributions"
+          command: |
+            python setup.py sdist bdist_wheel
+            python setup.py --version > dist/VERSION
+      - persist_to_workspace:
+          root: dist
+          paths:
+            - ./*
+
+  release-github:
+    working_directory: ~/pyeactivities
+    docker:
+      - image: cibuilds/github:0.12
+    steps:
+      - attach_workspace:
+          at: ./dist
+      - run:
+          name: "Publish release on GitHub"
+          command: |
+            VERSION=$(cat dist/VERSION)
+            rm dist/VERSION
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./dist/
