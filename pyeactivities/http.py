@@ -1,12 +1,13 @@
 import requests
 
+from pyeactivities import __version__ as pyeactivities_version
 from pyeactivities.exceptions import (
     APIException,
     APIUnauthorisedException,
     APIForbiddenException,
 )
 
-DEFAULT_USER_AGENT = "pyeactivities/0.1.0"
+DEFAULT_USER_AGENT = "pyeactivities/{}".format(pyeactivities_version)
 
 
 class EActivitesClient:
