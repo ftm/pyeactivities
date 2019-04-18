@@ -1,6 +1,31 @@
 version: 2
+workflows:
+  version: 2
+  main:
+    jobs:
+      - test:
+          filters:
+            tags:
+              only: /.*/
+      - build-dist:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /\d+\.\d+\.\d+(?:-.*)?/
+            branches:
+              only: master
+      - release-github:
+          requires:
+            - build-dist
+          filters:
+            tags:
+              only: /\d+\.\d+\.\d+(?:-.*)?/
+            branches:
+              only: master
+
 jobs:
-  build:
+  test:
     working_directory: ~/pyeactivities
     docker:
       - image: circleci/python:3.7.1
@@ -9,12 +34,14 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Setup Python folder permissions"
           command: |
             sudo chown -R circleci:circleci /usr/local/bin
             sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
       - restore_cache:
           key: deps-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
+          name: "Install Pipenv and project dependencies"
           command: |
             sudo pip install pipenv
             pipenv install -d
@@ -25,9 +52,40 @@ jobs:
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
       - run:
+          name: "Run tests"
           command: |
             pipenv run python -m pytest tests --junitxml=test-results/pytest/pytest-report.xml
       - store_test_results:
           path: test-results
       - store_artifacts:
           path: test-results
+
+  build-dist:
+    working_directory: ~/pyeactivities
+    docker:
+        - image: circleci/python:3.7.1
+    steps:
+      - checkout
+      - run:
+          name: "Build source and binary distributions"
+          command: |
+            python setup.py sdist bdist_wheel
+            python setup.py --version > dist/VERSION
+      - persist_to_workspace:
+          root: dist
+          paths:
+            - ./*
+
+  release-github:
+    working_directory: ~/pyeactivities
+    docker:
+      - image: cibuilds/github:0.12
+    steps:
+      - attach_workspace:
+          at: ./dist
+      - run:
+          name: "Publish release on GitHub"
+          command: |
+            VERSION=$(cat dist/VERSION)
+            rm dist/VERSION
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./dist/
