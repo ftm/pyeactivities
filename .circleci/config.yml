@@ -1,12 +1,17 @@
 version: 2
 workflows:
   version: 2
-  main:
+  build:
+    jobs:
+      - test
+  build-and-deploy:
     jobs:
       - test:
           filters:
             tags:
-              only: /.*/
+              only: /\d+\.\d+\.\d+(?:-.*)?/
+            branches:
+              ignore: /.*/
       - build-dist:
           requires:
             - test
@@ -14,7 +19,7 @@ workflows:
             tags:
               only: /\d+\.\d+\.\d+(?:-.*)?/
             branches:
-              only: master
+              ignore: /.*/
       - release-github:
           requires:
             - build-dist
@@ -22,7 +27,7 @@ workflows:
             tags:
               only: /\d+\.\d+\.\d+(?:-.*)?/
             branches:
-              only: master
+              ignore: /.*/
 
 jobs:
   test:
