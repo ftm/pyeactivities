@@ -1,20 +1,15 @@
-.. pyeactivities documentation master file, created by
-   sphinx-quickstart on Mon Apr 22 21:58:45 2019.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+=============
+pyeactivities
+=============
+.. currentmodule:: pyeactivities
 
-Welcome to pyeactivities's documentation!
-=========================================
+pyeactivities provides a simple Python wrapper around the API for eActivites,
+the system used by Imperial College Union for societies to manage themselves.
+It handles tasks such as retrieving lists of members, lists of products, and
+sales data from the society's shop.
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+Installation
+============
+Install the extension with pip::
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+    $ pip install pyeactivities-ftm
