@@ -11,6 +11,16 @@ DEFAULT_USER_AGENT = "pyeactivities/{}".format(pyeactivities_version)
 
 
 class EActivitesClient:
+    """
+    This is an internal HTTP client used by pyeactivities to send requests to
+    eActivities, it should not be used by the end user. It handles all the common
+    bits between the API calls such as prepending the endpoint, including the API
+    key, and handling any Unauthorised or Forbidden errors.
+
+    The client uses a default user agent of "pyeactivities/<version>" where
+    <version> is the version of the pyeactivities library being used.
+    """
+
     def __init__(self, api_key, endpoint_base, user_agent=DEFAULT_USER_AGENT):
         self.api_key = api_key
         self.endpoint_base = endpoint_base

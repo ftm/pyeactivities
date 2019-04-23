@@ -4,7 +4,9 @@ from pyeactivities.http import EActivitesClient
 
 
 class CSP:
-    """Represents a CSP as returned by the CSP endpoint"""
+    """
+    Represents a CSP as returned by the CSP endpoint
+    """
 
     def __init__(
         self,
@@ -15,30 +17,50 @@ class CSP:
         client: EActivitesClient,
     ):
         self.code = code
+        """The (typically 3 digit) code for the CSP"""
         self.name = name
+        """The name of the CSP"""
         self.web_name = web_name
+        """The name of the society as listed on the Union's website"""
         self.acronym = acronym
+        """The acronym of the society"""
         self.client = client
+        """The EActivitiesClient to use for API requests"""
 
+        # Cache objects
         self._members = None
         self._committee_members = None
         self._online_sales = None
         self._products = None
 
     def get_members(self, force_recheck=False, save_results=True):
+        """
+        Retrieve a list of of the CSP's members
+
+        :param force_recheck: override the CSP's cache
+        :param save_results: save the respones to the CSP's cache
+        """
+        # Check if we have a cached list and we aren't overriding
         if self._members and not force_recheck:
             return self._members
 
-        # Query eActivities
+        # Retrieve list of members from eActivities and parse
         members_response = self._csp_get("reports/members")
         members = [Member.from_dict(m) for m in members_response]
 
+        # Save results into cache if requested
         if save_results:
             self._members = members
 
         return members
 
     def get_committee_members(self, force_recheck=False, save_results=True):
+        """
+        Retrieve a list of the CSP's committee members
+
+        :param force_recheck: override the CSP's cache
+        :param save_results: save the respones to the CSP's cache
+        """
         if self._committee_members and not force_recheck:
             return self._committee_members
 
@@ -51,6 +73,12 @@ class CSP:
         return committee
 
     def get_online_sales(self, force_recheck=False, save_results=True):
+        """
+        Retrieve all of the CSP's online sales
+
+        :param force_recheck: override the CSP's cache
+        :param save_results: save the respones to the CSP's cache
+        """
         if self._online_sales and not force_recheck:
             return self._online_sales
 
@@ -63,6 +91,12 @@ class CSP:
         return sales
 
     def get_products(self, force_recheck=False, save_results=True):
+        """
+        Retrieve all of the CSP's shop products
+
+        :param force_recheck: override the CSP's cache
+        :param save_results: save the respones to the CSP's cache
+        """
         if self._products and not force_recheck:
             return self._products
 
@@ -91,7 +125,9 @@ class CSP:
 
 
 class Member:
-    """Represents a member of a CSP as returned by the member report endpoint"""
+    """
+    Represents a member of a CSP as returned by the member report endpoint
+    """
 
     def __init__(
         self,
@@ -130,7 +166,10 @@ class Member:
 
 
 class CommitteeMember:
-    """Represents a committee member of a CSP as returned by the committee member report endpoint"""
+    """
+    Represents a committee member of a CSP as returned by the committee member
+    report endpoint
+    """
 
     def __init__(
         self,
@@ -175,6 +214,10 @@ class CommitteeMember:
 
 
 class Customer:
+    """
+    Represents a customer from an online sale
+    """
+
     def __init__(self, first_name: str, surname: str, cid: str, email: str, login: str):
         self.first_name = first_name
         self.surname = surname
@@ -188,6 +231,10 @@ class Customer:
 
 
 class VAT:
+    """
+    Represents the VAT information for a product or sale etc.
+    """
+
     def __init__(self, code: str, name: str, rate: float):
         self.code = code
         self.name = name
@@ -199,6 +246,10 @@ class VAT:
 
 
 class OnlineSale:
+    """
+    Represents an online sale with details of the product, price, and customer
+    """
+
     def __init__(
         self,
         order_number: str,
@@ -237,6 +288,10 @@ class OnlineSale:
 
 
 class Account:
+    """
+    Represents an account within a CSP's finances
+    """
+
     def __init__(self, code: str, name: str, type: str):
         self.code = code
         self.name = name
@@ -248,6 +303,10 @@ class Account:
 
 
 class Activity:
+    """
+    Represents an activity within a CSP's finances
+    """
+
     def __init__(self, code: str, name: str):
         self.code = code
         self.name = name
@@ -258,6 +317,10 @@ class Activity:
 
 
 class ProductLine:
+    """
+    Represents a particular line within a product sold on the CSP's online shop
+    """
+
     def __init__(
         self,
         id: int,
@@ -299,6 +362,10 @@ class ProductLine:
 
 
 class Product:
+    """
+    Represents a product sold on the online shop
+    """
+
     def __init__(
         self,
         csp: CSP,
@@ -326,6 +393,12 @@ class Product:
         self._sales = None
 
     def get_sales(self, force_recheck=False, save_results=True) -> List[OnlineSale]:
+        """
+        Retrieve a list of sales for the product
+
+        :param force_recheck: override the CSP's cache
+        :param save_results: save the respones to the CSP's cache
+        """
         if self._sales and not force_recheck:
             return self._sales
 
