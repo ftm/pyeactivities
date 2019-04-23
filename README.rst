@@ -1,7 +1,7 @@
 pyeactivities
 =============
 
-|circleci-status| |pypi-version|
+|circleci-status| |pypi-version| |docs|
 
 .. |circleci-status| image:: https://circleci.com/gh/ftm/pyeactivities/tree/master.svg?style=svg
    :alt: CircleCI
@@ -10,6 +10,10 @@ pyeactivities
 .. |pypi-version| image:: https://img.shields.io/pypi/v/pyeactivities-ftm.svg
    :alt: PyPI
    :target: https://pypi.org/project/pyeactivities-ftm/
+
+.. |docs| image:: https://readthedocs.org/projects/pyeactivities/badge/?version=latest
+   :alt: Documentation Status
+   :target: https://pyeactivities.readthedocs.io/en/latest/?badge=latest
 
 pyeactivities is a Python wrapper for the read-only API for eActivities, the
 system provided by Imperial College Union for societies to manage themselves.
@@ -41,6 +45,9 @@ API documentation), and your API key.
   for m in members:
     print("  {cid} - {fn} {sn}".format(cid=m.cid, fn=m.first_name, sn=m.surname))
 
+Documentation
+-------------
+Documentation is available at: `<https://pyeactivities.readthedocs.io>`_.
 
 License
 -------
