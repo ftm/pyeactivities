@@ -10,7 +10,7 @@ from pyeactivities.exceptions import (
 DEFAULT_USER_AGENT = "pyeactivities/{}".format(pyeactivities_version)
 
 
-class EActivitesClient:
+class EActivitiesClient:
     """
     This is an internal HTTP client used by pyeactivities to send requests to
     eActivities, it should not be used by the end user. It handles all the common
