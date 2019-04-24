@@ -3,6 +3,8 @@ pyeactivities
 =============
 .. currentmodule:: pyeactivities
 
+Introduction
+============
 pyeactivities provides a simple Python wrapper around the API for eActivities,
 the system used by Imperial College Union for societies to manage themselves.
 It handles tasks such as retrieving lists of members, lists of products, and
@@ -69,6 +71,9 @@ Most operations are then performed on this CSP object, for example:
 API Reference
 =============
 This documentation is automatically generated from pyeactivities' source code.
+
+API Objects
+-----------
 
 .. autoclass:: pyeactivities.eactivities.EActivities
 
