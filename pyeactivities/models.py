@@ -1,6 +1,6 @@
 from typing import List
 
-from pyeactivities.http import EActivitesClient
+from pyeactivities.http import EActivitiesClient
 
 
 class CSP:
@@ -14,7 +14,7 @@ class CSP:
         name: str,
         web_name: str,
         acronym: str,
-        client: EActivitesClient,
+        client: EActivitiesClient,
     ):
         self.code = code
         """The (typically 3 digit) code for the CSP"""

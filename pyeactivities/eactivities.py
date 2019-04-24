@@ -1,6 +1,6 @@
 from typing import List
 
-from pyeactivities.http import EActivitesClient
+from pyeactivities.http import EActivitiesClient
 from pyeactivities.models import CSP
 
 
@@ -11,7 +11,7 @@ class EActivities:
     """
 
     def __init__(self, api_key: str, endpoint_base: str):
-        self.client = EActivitesClient(api_key, endpoint_base)
+        self.client = EActivitiesClient(api_key, endpoint_base)
 
     def get_csps(self) -> List[CSP]:
         """

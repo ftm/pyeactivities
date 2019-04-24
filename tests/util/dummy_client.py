@@ -1,7 +1,7 @@
-from pyeactivities.http import EActivitesClient
+from pyeactivities.http import EActivitiesClient
 
 
-class DummyClient(EActivitesClient):
+class DummyClient(EActivitiesClient):
     def __init__(self):
         super(DummyClient, self).__init__("DUMMY", "dummy")
 
