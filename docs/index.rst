@@ -36,7 +36,7 @@ URL.
 
 .. code-block:: python
 
-  from pyeactivities.eactivities import EActivities
+  from pyeactivities import EActivities
 
   # Base URL must end in trailing / (e.g. https://<eactivities>/API/)
   eactivities = EActivities(api_key, api_base_url)
@@ -75,11 +75,11 @@ This documentation is automatically generated from pyeactivities' source code.
 API Objects
 -----------
 
-.. autoclass:: pyeactivities.eactivities.EActivities
+.. autoclass:: pyeactivities.EActivities
 
    .. automethod:: get_csps
 
-.. autoclass:: pyeactivities.models.CSP
+.. autoclass:: pyeactivities.CSP
 
   .. automethod:: get_members
 
@@ -89,25 +89,25 @@ API Objects
 
   .. automethod:: get_products
 
-.. autoclass:: pyeactivities.models.Member
+.. autoclass:: pyeactivities.Member
 
-.. autoclass:: pyeactivities.models.CommitteeMember
+.. autoclass:: pyeactivities.CommitteeMember
 
-.. autoclass:: pyeactivities.models.Customer
+.. autoclass:: pyeactivities.OnlineSale
 
-.. autoclass:: pyeactivities.models.VAT
+.. autoclass:: pyeactivities.Customer
 
-.. autoclass:: pyeactivities.models.OnlineSale
+.. autoclass:: pyeactivities.VAT
 
-.. autoclass:: pyeactivities.models.Account
-
-.. autoclass:: pyeactivities.models.Activity
-
-.. autoclass:: pyeactivities.models.ProductLine
-
-.. autoclass:: pyeactivities.models.Product
+.. autoclass:: pyeactivities.Product
 
   .. automethod:: get_sales
+
+.. autoclass:: pyeactivities.ProductLine
+
+.. autoclass:: pyeactivities.Account
+
+.. autoclass:: pyeactivities.Activity
 
 Exceptions
 ----------

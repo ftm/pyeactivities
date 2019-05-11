@@ -1,16 +1,16 @@
 import pytest
 
-from pyeactivities.models import (
-    CommitteeMember,
+from pyeactivities import (
     CSP,
     Member,
+    CommitteeMember,
+    OnlineSale,
     Customer,
     VAT,
-    OnlineSale,
+    Product,
+    ProductLine,
     Account,
     Activity,
-    ProductLine,
-    Product,
 )
 
 from tests.util.dummy_client import DummyClient
