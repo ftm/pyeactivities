@@ -1,6 +1,6 @@
 import os
 
-from pyeactivities.eactivities import EActivities
+from pyeactivities import EActivities
 
 eactivities = EActivities(
     os.environ["EACTIVITIES_API_KEY"], os.environ["EACTIVITIES_API_ENDPOINT"]
