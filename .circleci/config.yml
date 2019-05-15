@@ -1,17 +1,13 @@
 version: 2
 workflows:
   version: 2
-  build:
-    jobs:
-      - test
+
   build-and-deploy:
     jobs:
       - test:
           filters:
             tags:
-              only: /\d+\.\d+\.\d+(?:-.*)?/
-            branches:
-              ignore: /.*/
+              only: /.*/ # required since further stages have tag filters and require 'test'
       - build-dist:
           requires:
             - test
