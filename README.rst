@@ -32,7 +32,7 @@ API documentation), and your API key.
 
 .. code-block:: python
 
-  from pyeactivities.eactivities import EActivities
+  from pyeactivities import EActivities
 
   # Base URL must end in trailing / (e.g. https://<eactivities>/API/)
   eactivities = EActivities(api_key, api_base_url)
